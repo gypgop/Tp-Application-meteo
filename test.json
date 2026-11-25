@@ -1,0 +1,14 @@
+[
+	{
+		"centre": {
+			"type": "Point",
+			"coordinates": [
+				7.0152,
+				43.5454
+			]
+		},
+		"nom": "Cannes",
+		"code": "06029",
+		"_score": 0.8509426367505101
+	}
+]
