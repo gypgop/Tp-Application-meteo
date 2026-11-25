@@ -9,5 +9,5 @@ type Center struct {
 }
 
 type Code struct {
-	Codes int `json:"codesPostaux"`
+	Codes []string `json:"codesPostaux"`
 }
