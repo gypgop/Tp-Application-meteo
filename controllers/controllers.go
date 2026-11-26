@@ -29,6 +29,8 @@ func MeteoPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	cityCoords, err := api.GetCityCoords(cityCode)
 
-	fmt.Fprintf(w, "ville trouvé : %v %v", api.GetOpenMeteo(cityCoords), err)
+	cityDatas, err := api.GetOpenMeteo(cityCoords)
+
+	fmt.Fprintf(w, "ville trouvé : %s\n %+v %v", cityName, cityDatas, err)
 
 }

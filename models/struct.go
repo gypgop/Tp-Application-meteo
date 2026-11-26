@@ -13,13 +13,13 @@ type Code struct {
 }
 
 type Reponse struct {
-	Hourly Hourly `json:"hourly"`
+	Hourly Hourly `json:"daily"`
 }
 
 type Hourly struct {
-	Time                     Hours `json:"time"`
-	Temperature              Temps `json:"temperature_2m"`
-	PrecipitationProbability []int `json:"precipitation_probability"`
+	Time                     Hours     `json:"time"`
+	Temperature              Temps     `json:"temperature_2m_min"`
+	PrecipitationProbability []float64 `json:"precipitation_sum"`
 }
 
 type Hours []string

@@ -9,42 +9,49 @@ import (
 	"time"
 )
 
-const openMeteoBaseURL = "https://geo.api.gouv.fr/"
+const openMeteoBaseURL = "https://api.open-meteo.com/v1/forecast?"
 
+// &current=temperature_2m,wind_speed_10m,weather_code&hourly=temperature_2m,precipitation_probability&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&weather_code&timezone=auto&forecast_days=7
 var openMeteoClient = &http.Client{Timeout: 15 * time.Second}
 
 var ErrOpenMeteoCityNotFound = errors.New("Unknown player")
 
-func GetOpenMeteo(CityCoords []models.Datas) (models.Reponse, error) {
+func GetOpenMeteo(CityCoords models.Datas) (models.Reponse, error) {
 
-	fmt.Printf("@%s@\n", CityCoords)
+	fmt.Printf("\ncityCoords = @%v@\n", CityCoords.Centre.Coordinates[0])
+	fmt.Printf("\ncityCoords = @%v@\n", CityCoords.Centre.Coordinates[1])
 
-	endpoint := fmt.Sprintf("%scommunes?codePostal=%s&fields=centre", openMeteoBaseURL, CityCode[0].Codes[0])
+	endpoint := fmt.Sprintf("%slatitude=%f&longitude=%f&current=temperature_2m,wind_speed_10m,weather_code&hourly=temperature_2m,precipitation_probability&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&weather_code&timezone=auto&forecast_days=7", openMeteoBaseURL, CityCoords.Centre.Coordinates[0], CityCoords.Centre.Coordinates[1])
+	// 													^ a changer
 
 	request, err := http.NewRequest(http.MethodGet, endpoint, nil)
 
 	if err != nil {
 		fmt.Printf("erreur, %v", err)
-		return models.Datas{}, err
+		return models.Reponse{}, err
 	}
 
-	fmt.Printf("%v\n", request)
+	// fmt.Printf("%v\n", request)
 
 	response, err := openMeteoClient.Do(request)
 
 	if err != nil {
 		fmt.Printf("erreur, %v", err)
-		return models.Datas{}, err
+		return models.Reponse{}, err
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
-		return models.Datas{}, ErrOpenMeteoCityNotFound
+		return models.Reponse{}, ErrOpenMeteoCityNotFound
 
 	}
 
-	// var CityCoords []models.Datas
-	err = json.NewDecoder(response.Body).Decode(&CityCoords)
-	return CityCoords[0], err
+	var datas models.Reponse
+
+	err = json.NewDecoder(response.Body).Decode(&datas)
+
+	fmt.Printf("%v", datas)
+
+	return datas, err
 
 }
