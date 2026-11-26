@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"initial/models"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -13,7 +14,7 @@ const baseURL = "https://geo.api.gouv.fr/"
 
 var client = &http.Client{Timeout: 15 * time.Second}
 
-var ErrCityNotFound = errors.New("Unknown player")
+var ErrCityNotFound = errors.New("Unknown City")
 
 func GetCityCoords(CityCode []models.Code) (models.Datas, error) {
 
@@ -54,7 +55,7 @@ func GetCityCode(CityName string) ([]models.Code, error) {
 
 	// communes?nom=Versailles&fields=codesPostaux
 
-	endpoint := fmt.Sprintf("%scommunes?nom=%s&fields=codesPostaux", baseURL, CityName)
+	endpoint := fmt.Sprintf("%scommunes?nom=%s&fields=codesPostaux", baseURL, url.PathEscape(CityName))
 
 	request, err := http.NewRequest(http.MethodGet, endpoint, nil)
 

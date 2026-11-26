@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"initial/api"
 	"net/http"
-	"strings"
 )
 
 func MeteoPageHandler(w http.ResponseWriter, r *http.Request) {
@@ -17,7 +16,7 @@ func MeteoPageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cityName := strings.TrimSpace(r.URL.Query().Get("CityName"))
+	cityName := r.URL.Query().Get("CityName")
 	if cityName == "" {
 		fmt.Println("DEBUG: Paramètre PlayerName manquant ou vide")
 		http.Error(w, "Veuillez indiquer un nom de ville", http.StatusBadRequest)
@@ -25,7 +24,6 @@ func MeteoPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	cityCode, err := api.GetCityCode(cityName)
-	// ne recup apaas le city code
 
 	cityCoords, err := api.GetCityCoords(cityCode)
 
