@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,29 +8,30 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-	<h1 class="Titre">meteogator</h1>
+	<h1 class="Titre">{{.CityName}}</h1>
 
 	<div class="ui-widget">
 		<form action="./City" method="get">
-  			<input type="search" name="CityName">
-  			<input type="submit" value="🔎">
+  			<input type="search" name="CityName" required>
+  			<input type="submit" value="🔎" required>
 		</form>
 	</div>
     <main class="meteo">
 
         <div class="types">
-			{{range .Hourly.Time}}
-				<p>{{.}}</p>
+			{{range $index, $date := .CityData.Hourly.Time}}
+				<article class="jour">
+					<h2 class="date-jour">{{slice $date 8 10}}/{{slice $date 5 7}}</h2>
+					<p class="temperature">
+						<span class="libelle">Température minimale</span>
+						<span class="valeur">{{index $.CityData.Hourly.Temperature $index}} °C</span>
+					</p>
+					<p class="precipitations">
+						<span class="libelle">Précipitations</span>
+						<span class="valeur">{{index $.CityData.Hourly.PrecipitationProbability $index}} %</span>
+					</p>
+				</article>
 			{{end}}
-
-            {{range .Hourly.Temperature}}
-    			<p>{{.}} °C</p>
-			{{end}}
-
-			{{range .Hourly.PrecipitationProbability}}
-    			<p>{{.}}%</p>
-			{{end}}
-			
         </div>
     </main>
 </body>

@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="icon" type="image/png" href="/assets/images/meteogator.png">
+	<link rel="stylesheet" href="/assets/css/style.css">
 	<title>Erreur - Meteo Gator</title>
 </head>
 <body>
-	<h1>{{.StatusCode}}</h1>
-	<h2>Une erreur est survenue</h2>
-	<p>{{.Message}}</p>
-	<a href="/">Retour au Menu</a>
+	<main class="meteo erreur">
+		<h1 class="Titre">{{.StatusCode}}</h1>
+		<h2>Une erreur est survenue</h2>
+		<p>{{.Message}}</p>
+		<a href="/">Retour au menu</a>
+	</main>
 </body>
 </html>

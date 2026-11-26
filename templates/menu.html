@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/assets/images/meteogator.png">
+	<link rel="stylesheet" href="/assets/css/style.css">
 	<title>Meteo Gator</title>
-	<link rel="icon" size="32x23" href="../meteogator.png">
 </head>
 <body>
-<div class="ui-widget">
-<form action="./City" method="get">
-  <input type="search" name="CityName">
-  <input type="submit" value="🔎">
-</form>
-</div>
+	<h1 class="Titre">Meteo Gator</h1>
+	<div class="ui-widget">
+		<form action="./City" method="get">
+			<input type="search" name="CityName" required>
+			<input type="submit" value="🔎" required>
+		</form>
+	</div>
 </body>
 </html>

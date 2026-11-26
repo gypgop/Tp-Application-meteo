@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"initial/api"
+	"initial/models"
 	"log"
 	"net/http"
 )
@@ -32,7 +33,7 @@ func MeteoPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	cityDatas, err := api.GetOpenMeteo(cityCoords)
 
-	fmt.Printf("\n\n\n\nville trouvé : %s\n %+v %v", cityName, cityDatas, err)
+	fmt.Printf("\n\n\n\nville trouvé : %s\n %+v\n %v\n", cityName, cityDatas, err)
 
 	page, err := template.ParseFiles("templates/meteo.html")
 
@@ -44,7 +45,11 @@ func MeteoPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	var body bytes.Buffer
 
-	if err := page.Execute(&body, cityDatas); err != nil {
+	if err := page.Execute(&body, struct {
+		CityName string
+		CityData models.Reponse
+	}{CityName: cityName, CityData: cityDatas}); err != nil {
+
 		log.Printf("impossible de générer la page de cette ville : %v", err)
 		renderError(w, http.StatusInternalServerError, "Impossible de générer la page du bla bla.")
 		return
@@ -54,7 +59,7 @@ func MeteoPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	if _, err := body.WriteTo(w); err != nil {
-		log.Printf("impossible d'envoyer la page Pokémon : %v", err)
+		log.Printf("impossible d'envoyer la page de ville : %v", err)
 	}
 }
 
