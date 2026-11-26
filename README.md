@@ -1,7 +1,12 @@
-# Tp-Application-meteo
+# Météo Gator
 
-# https://api.open-meteo.com/v1/forecast?latitude=43.5297&longitude=5.4474&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&hourly=temperature_2m,precipitation_probability&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Europe%2FParis&forecast_days=3
+Petite application météo en Go. Elle récupère les informations de villes via les API de geo.api.gouv.fr et Open-Meteo.
 
-# https://geo.api.gouv.fr/communes?nom=Versailles&fields=centre
+## Lancer l’application
 
-nom=NomDeLaVille
+---
+dnas la console : 
+`go run .`
+---
+
+Ouvrez ensuite [http://localhost:8080](http://localhost:8080).
