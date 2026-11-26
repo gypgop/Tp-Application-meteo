@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>meteogator</title>
+	<link rel="icon" type="image/png" href="/assets/images/meteogator.png">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+	<h1 class="Titre">meteogator</h1>
+
+	<div class="ui-widget">
+		<form action="./City" method="get">
+  			<input type="search" name="CityName">
+  			<input type="submit" value="🔎">
+		</form>
+	</div>
+    <main class="meteo">
+
+        <div class="types">
+			{{range .Hourly.Time}}
+				<p>{{.}}</p>
+			{{end}}
+
+            {{range .Hourly.Temperature}}
+    			<p>{{.}} °C</p>
+			{{end}}
+
+			{{range .Hourly.PrecipitationProbability}}
+    			<p>{{.}}%</p>
+			{{end}}
+			
+        </div>
+    </main>
+</body>
+</html>

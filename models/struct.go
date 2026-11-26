@@ -16,7 +16,7 @@ type Reponse struct {
 	Hourly Hourly `json:"daily"`
 }
 
-type Hourly struct {
+type Hourly struct { //not hourly but i don't want to break smth changing it 👀
 	Time                     Hours     `json:"time"`
 	Temperature              Temps     `json:"temperature_2m_min"`
 	PrecipitationProbability []float64 `json:"precipitation_sum"`
