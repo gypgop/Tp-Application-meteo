@@ -17,7 +17,6 @@ var ErrCityNotFound = errors.New("Unknown player")
 
 func GetCityCoords(CityCode []models.Code) (models.Datas, error) {
 
-	fmt.Printf("-%d-\n", len(CityCode[0].Codes[0]))
 	fmt.Printf("@%s@\n", CityCode[0].Codes[0])
 
 	endpoint := fmt.Sprintf("%scommunes?codePostal=%s&fields=centre", baseURL, CityCode[0].Codes[0])
@@ -75,7 +74,6 @@ func GetCityCode(CityName string) ([]models.Code, error) {
 
 	if response.StatusCode != http.StatusOK {
 		return nil, ErrCityNotFound
-
 	}
 
 	var CityCodes []models.Code
@@ -89,7 +87,7 @@ func GetCityCode(CityName string) ([]models.Code, error) {
 	if len(CityCodes) == 0 {
 		return nil, ErrCityNotFound
 	}
-	fmt.Printf("CityCode : %v", CityCodes)
+	fmt.Printf("CityCode : %s", CityCodes)
 
 	return CityCodes, err
 }
